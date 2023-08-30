@@ -1,1 +1,6 @@
-Sample-Libs\mobilertc-android\mobilertc\
+Sample-Libs/mobilertc-android/mobilertc/mobilertc.aar
+build/
+*.idea
+*.gradle
+*.transforms
+*.build
