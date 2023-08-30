@@ -1,6 +1,50 @@
 Sample-Libs/mobilertc-android/mobilertc/mobilertc.aar
+
+
+# Compiled output
+*.apk
+*.ap_
+*.dex
+*.class
+*.aab
+
+# Gradle files
+.gradle/
 build/
-*.idea
-*.gradle
-*.transforms
-*.build
+.idea/
+*.iml
+.gradle/
+/local.properties
+
+# Android Studio generated files
+captures/
+.navigation/
+*.log
+*.pot
+*.iws
+.idea/workspace.xml
+
+# Gradle Wrapper
+gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+
+# User-specific configuration files
+.gradle/
+local.properties
+
+# Signing files
+.keystore
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Crashlytics configuration
+fabric.properties
+
+# Firebase configuration
+google-services.json
+
+# NDK
+obj/
+Sample-Libs/mobilertc-android/java_pid76956.hprof

@@ -34,6 +34,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import us.zoom.sdk.ZoomVideoSDKAnnotationHelper;
@@ -115,6 +116,115 @@ public class BaseSessionActivity extends AppCompatActivity implements View.OnCli
 
     private static final boolean show_audio_test = false;
 
+    //GPIODemo
+    private GPIO pinMoveUp;
+    private GPIO pinMoveDown;
+    private GPIO pinMoveLeft;
+    private GPIO pinMoveRight;
+    private GPIO pinMoveCatch;
+    private GPIO pinMoveStart;
+
+    //GPIODemo
+    private GPIO pinMotorIn1;
+    private GPIO pinMotorIn2;
+    private GPIO pinMotorIn3;
+    private GPIO pinMotorIn4;
+    private GPIO pinAccessoriesIn1;
+    private GPIO pinAccessoriesIn2;
+
+    //GPIODemo
+    private Handler handlerForGPIO;
+    private boolean isCarDemo = false; //if set to false, this is for claw machine.
+
+    //GPIODemo
+
+    //GPIODemo
+    private void initialisePins(){
+        if (isCarDemo){
+            pinMotorIn1= new GPIO(27, GPIO.DIRECTION_OUT);
+          pinMotorIn2= new GPIO(22, GPIO.DIRECTION_OUT);
+             pinMotorIn3= new GPIO(23, GPIO.DIRECTION_OUT);
+            pinMotorIn4= new GPIO(24, GPIO.DIRECTION_OUT);
+            pinAccessoriesIn1= new GPIO(5, GPIO.DIRECTION_OUT);
+          pinAccessoriesIn2= new GPIO(6, GPIO.DIRECTION_OUT);
+
+        }
+        else{
+            //dreamtcs to fix this
+            pinMoveUp= new GPIO(22, GPIO.DIRECTION_OUT);
+             pinMoveDown=new GPIO(23, GPIO.DIRECTION_OUT);
+           pinMoveLeft= new GPIO(24, GPIO.DIRECTION_OUT);
+          pinMoveRight= new GPIO(12, GPIO.DIRECTION_OUT);
+           pinMoveCatch=new GPIO(5, GPIO.DIRECTION_OUT);
+           pinMoveStart= new GPIO(6 , GPIO.DIRECTION_OUT);
+        }
+        }
+    //GPIODemo
+    private void resetMovementFirstTime(){
+        try{
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (isCarDemo){
+                        pinMotorIn1.setValue(GPIO.VALUE_OFF);
+                        pinMotorIn2.setValue(GPIO.VALUE_OFF);
+                        pinMotorIn3.setValue(GPIO.VALUE_OFF);
+                        pinMotorIn4.setValue(GPIO.VALUE_OFF);
+                        pinAccessoriesIn1.setValue(GPIO.VALUE_OFF);
+                        pinAccessoriesIn2.setValue(GPIO.VALUE_OFF);
+                    }
+                    else{
+                        pinMoveUp.setValue(GPIO.VALUE_OFF);
+                        pinMoveDown.setValue(GPIO.VALUE_OFF);
+                        pinMoveLeft.setValue(GPIO.VALUE_OFF);
+                        pinMoveRight.setValue(GPIO.VALUE_OFF);
+                        pinMoveCatch.setValue(GPIO.VALUE_OFF);
+                        pinMoveStart.setValue(GPIO.VALUE_OFF);
+                    }
+                }
+            },100);
+        }
+        catch (Exception ex){
+            ex.toString();
+
+        }
+
+
+    }
+
+    //GPIODemo
+    private void resetMovement(){
+
+        try{
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (isCarDemo){
+                        pinMotorIn1.setValue(GPIO.VALUE_OFF);
+                        pinMotorIn2.setValue(GPIO.VALUE_OFF);
+                        pinMotorIn3.setValue(GPIO.VALUE_OFF);
+                        pinMotorIn4.setValue(GPIO.VALUE_OFF);
+                        pinAccessoriesIn1.setValue(GPIO.VALUE_OFF);
+                        pinAccessoriesIn2.setValue(GPIO.VALUE_OFF);
+                    }
+                    else{
+                        pinMoveUp.setValue(GPIO.VALUE_OFF);
+                        pinMoveDown.setValue(GPIO.VALUE_OFF);
+                        pinMoveLeft.setValue(GPIO.VALUE_OFF);
+                        pinMoveRight.setValue(GPIO.VALUE_OFF);
+                        pinMoveCatch.setValue(GPIO.VALUE_OFF);
+                        pinMoveStart.setValue(GPIO.VALUE_OFF);
+                    }
+                }
+            },100);
+        }
+        catch (Exception ex){
+            ex.toString();
+
+        }
+
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +233,11 @@ public class BaseSessionActivity extends AppCompatActivity implements View.OnCli
         }
         setContentView(R.layout.activity_session);
         init();
+
+        //GPIODemo
+        initialisePins();
+        resetMovementFirstTime();
+        handlerForGPIO = new Handler();
     }
 
     protected String getDefaultSessionName() {
@@ -369,7 +484,7 @@ public class BaseSessionActivity extends AppCompatActivity implements View.OnCli
         sessionContext.userName = name;
 
         //GET START
-        String token = Constants.TOKEN;
+       String token =Constants.TOKEN(sessionName);
 
         if (TextUtils.isEmpty(token)) {
             Toast.makeText(this, "Token is empty", Toast.LENGTH_LONG).show();
@@ -489,9 +604,304 @@ public class BaseSessionActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onChatNewMessageNotify(ZoomVideoSDKChatHelper chatHelper, ZoomVideoSDKChatMessage messageItem) {
+        String receivedtext = messageItem.getContent().toLowerCase();
+        if (isCarDemo){
+                switch (receivedtext) {
+                    case "forward":
+                    case "f":
+                        System.out.println("Move Forward");
+                        moveCarForward();
+                        break;
+                    case "backward":
+                    case "b":
+                        System.out.println("Move Backward");
+                        moveCarBackward();
+                        break;
+                    case "left":
+                    case "l":
+                        System.out.println("Turn Left");
+                        moveCarLeft();
+                        break;
+                    case "right":
+                    case "r":
+                        System.out.println("Turn Right");
+                        moveCarRight();
+                        break;
+                    case "camera":
+                        System.out.println("Camera");
+                        break;
+                    case "lights":
+                    case "light":
+                        System.out.println("Lights");
+                        toggleCarLights();
+                        break;
+                    default:
+                        System.out.println("Unknown Direction");
+                }
+        }else{
+            switch (receivedtext) {
+                case "u":
+                    System.out.println("Move Claw Up");
+                    moveClawUp();
+                    break;
+                case "d":
+                    System.out.println("Move Claw Down");
+                    moveClawDown();
+                    break;
+                case "l":
+                    System.out.println("Move Claw Left");
+                    moveClawLeft();
+                    break;
+                case "r":
+                    System.out.println("Move Claw Right");
+                    moveClawRight();
+                    break;
+                case "start":
+                case "s":
+                    System.out.println("Start Claw Game");
+                    startClawGame();
+                    break;
+                case "catch":
+                case "c":
+                    System.out.println("Catch Claw");
+                    catchClaw();
+                    break;
+                case "camera":
+                    System.out.println("Camera");
+                    break;
+                default:
+                    System.out.println("Unknown Direction");
+            }
+        }
 
     }
+    //GPIODemo
+    private void moveCarForward() {
 
+        try{
+            pinMotorIn1.setValue(GPIO.VALUE_ON);
+            pinMotorIn3.setValue(GPIO.VALUE_ON);
+
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    pinMotorIn1.setValue(GPIO.VALUE_OFF);
+                    pinMotorIn3.setValue(GPIO.VALUE_OFF);
+                    resetMovement();
+                }
+            };
+
+            handlerForGPIO.postDelayed(r,125);
+        }
+        catch (Exception ex){
+            ex.toString();
+        }
+    }
+    //GPIODemo
+    private void moveCarBackward() {
+
+        try{
+            pinMotorIn2.setValue(GPIO.VALUE_ON);
+            pinMotorIn4.setValue(GPIO.VALUE_ON);
+
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    pinMotorIn2.setValue(GPIO.VALUE_OFF);
+                    pinMotorIn4.setValue(GPIO.VALUE_OFF);
+                    resetMovement();
+                }
+            };
+
+            handlerForGPIO.postDelayed(r,125);
+        }
+        catch (Exception ex){
+            ex.toString();
+        }
+    }
+    //GPIODemo
+    private void moveCarLeft() {
+
+        try{
+            pinMotorIn2.setValue(GPIO.VALUE_ON);
+            pinMotorIn3.setValue(GPIO.VALUE_ON);
+
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    pinMotorIn2.setValue(GPIO.VALUE_OFF);
+                    pinMotorIn3.setValue(GPIO.VALUE_OFF);
+                    resetMovement();
+                }
+            };
+
+            handlerForGPIO.postDelayed(r,125);
+        }
+        catch (Exception ex){
+            ex.toString();
+        }
+
+    }
+    //GPIODemo
+    private void moveCarRight() {
+        try{
+            pinMotorIn1.setValue(GPIO.VALUE_ON);
+            pinMotorIn4.setValue(GPIO.VALUE_ON);
+
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    pinMotorIn1.setValue(GPIO.VALUE_OFF);
+                    pinMotorIn4.setValue(GPIO.VALUE_OFF);
+                    resetMovement();
+                }
+            };
+
+            handlerForGPIO.postDelayed(r,125);
+        }
+        catch (Exception ex){
+            ex.toString();
+        }
+    }
+    //GPIODemo
+    private void toggleCarLights() {
+        try{
+            pinAccessoriesIn1.setValue(GPIO.VALUE_ON);
+            pinAccessoriesIn2.setValue(GPIO.VALUE_ON);
+
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    pinAccessoriesIn1.setValue(GPIO.VALUE_OFF);
+                    pinAccessoriesIn2.setValue(GPIO.VALUE_OFF);
+                    resetMovement();
+                }
+            };
+
+            handlerForGPIO.postDelayed(r,125);
+        }
+        catch (Exception ex){
+            ex.toString();
+        }
+    }
+    //GPIODemo
+    void moveClawUp(){
+        try{
+
+            pinMoveUp.setValue(GPIO.VALUE_ON);
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    pinMoveUp.setValue(GPIO.VALUE_OFF);
+                    resetMovement();
+                }
+            };
+            handlerForGPIO.postDelayed(r,125);
+        }
+        catch (Exception ex){
+            ex.toString();
+        }
+
+    }
+    //GPIODemo
+    void moveClawDown(){
+        try{
+
+            pinMoveDown.setValue(GPIO.VALUE_ON);
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    pinMoveDown.setValue(GPIO.VALUE_OFF);
+                    resetMovement();
+                }
+            };
+            handlerForGPIO.postDelayed(r,125);
+        }
+        catch (Exception ex){
+            ex.toString();
+        }
+
+    }
+    //GPIODemo
+    void moveClawLeft(){
+
+        try{
+
+            pinMoveLeft.setValue(GPIO.VALUE_ON);
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    pinMoveLeft.setValue(GPIO.VALUE_OFF);
+                    resetMovement();
+                }
+            };
+
+            handlerForGPIO.postDelayed(r,125);
+        }
+        catch (Exception ex){
+            ex.toString();
+        }
+
+    }
+    //GPIODemo
+    void moveClawRight(){
+        try{
+            pinMoveRight.setValue(GPIO.VALUE_ON);
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    pinMoveRight.setValue(GPIO.VALUE_OFF);
+                    resetMovement();
+                }
+            };
+
+            handlerForGPIO.postDelayed(r,125);
+        }
+        catch (Exception ex){
+            ex.toString();
+        }
+    }
+    //GPIODemo
+    void startClawGame(){
+        try{
+
+        pinMoveStart.setValue(GPIO.VALUE_ON);
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                pinMoveStart.setValue(GPIO.VALUE_OFF);
+                resetMovement();
+            }
+        };
+
+        handlerForGPIO.postDelayed(r,125);
+    }
+        catch (Exception ex){
+        ex.toString();
+    }}
+    //GPIODemo
+    void catchClaw(){
+        try{
+
+            pinMoveCatch.setValue(GPIO.VALUE_ON);
+
+
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    pinMoveCatch.setValue(GPIO.VALUE_OFF);
+                    resetMovement();
+                }
+            };
+
+            handlerForGPIO.postDelayed(r,125);
+
+        }
+        catch (Exception ex){
+            ex.toString();
+        }
+
+    }
     @Override
     public void onChatDeleteMessageNotify(ZoomVideoSDKChatHelper chatHelper, String msgID, ZoomVideoSDKChatMessageDeleteType deleteBy) {
 
@@ -629,7 +1039,7 @@ public class BaseSessionActivity extends AppCompatActivity implements View.OnCli
         }
         textView.setVisibility(View.VISIBLE);
         textView.setText("" + delay);
-        handler.postDelayed(new Runnable() {
+        handlerForGPIO.postDelayed(new Runnable() {
             @Override
             public void run() {
                 delay--;
