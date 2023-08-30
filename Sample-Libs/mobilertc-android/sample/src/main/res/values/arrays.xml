@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="feedback_survey">
+        <item>Very Satisfied</item>
+        <item>Satisfied</item>
+        <item>Neutral</item>
+        <item>Unsatisfied</item>
+        <item>Very Unsatisfied</item>
+    </string-array>
+</resources>

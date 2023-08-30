@@ -1,0 +1,3 @@
+configurations.create("default")
+artifacts.add("default", file('zm-annoter.aar'))
+dependencies.add("default","androidx.constraintlayout:constraintlayout:2.1.0")

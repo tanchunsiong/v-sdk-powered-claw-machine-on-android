@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_280"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bg"
+    android:gravity="left"
+    android:minHeight="237dp"
+    android:orientation="vertical"
+    android:padding="21dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Session Information"
+        android:textColor="#232333"
+        android:textSize="20sp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/session_name"
+        android:textColor="#747487"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/info_session_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Practice"
+        android:textColor="#232333"
+        android:textSize="16sp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Password"
+        android:textColor="#747487"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/info_session_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="peace love"
+        android:textColor="#232333"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Participants"
+        android:textColor="#747487"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/info_user_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="#232333"
+        android:textSize="16sp" />
+
+</LinearLayout>

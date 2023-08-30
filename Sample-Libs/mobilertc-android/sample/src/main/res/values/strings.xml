@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Video SDK</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="create">Create</string>
+    <string name="join">Join</string>
+    <string name="launch_setting_title">Video SDK Playground</string>
+    <string name="launch_setting_settings">Settings</string>
+    <string name="launch_setting_feedback">Zoom Video SDK</string>
+    <string name="launch_setting_version">Version:v%s</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="actionbar_done">Done</string>
+    <string name="save">Save</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+
+    <string name="create_title">Create a Session</string>
+    <string name="join_title">Join a Session</string>
+    <string name="session_name">Session Name</string>
+    <string name="session_name_hint">Required</string>
+    <string name="session_name_digits">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !#$%&#038;()+-:;&#060;&#061;.&#062;?@[]^_{}|~,</string>
+    <string name="your_name">Your Name</string>
+    <string name="your_name_hint">Required</string>
+    <string name="password">Password</string>
+    <string name="sessionIdleTimeoutMins">SessionIdleTimeoutMins</string>
+    <string name="password_hint">Optional</string>
+    <string name="renderer">Renderer</string>
+    <string name="wrong_pass_tips">Wrong password.Try again</string>
+    <string name="copy_tips">Copied to clipboard</string>
+
+    <string name="renderer_option">Renderer Options</string>
+    <string name="renderer_option_zoom">Zoom renderer</string>
+    <string name="renderer_option_zoom_tips">Rendering with Zoom renderer</string>
+    <string name="renderer_option_opengl">OpenGL ES renderer</string>
+    <string name="renderer_option_opengl_tips">Rendering YUV420 raw data with OpenGL ES</string>
+
+    <string name="setting_title">Settings</string>
+
+    <string name="share_title">Share</string>
+    <string name="share_screen">Share Device Screen</string>
+    <string name="share_screen_info">Everything on your device screen will be shared</string>
+    <string name="share_picture">Share a Picture</string>
+    <string name="share_picture_info">Share a picture from your device</string>
+
+    <string name="share_external">Share external video source</string>
+    <string name="share_external_info">Share external video source your device</string>
+
+    <string name="leave_message">Do you want to leave this session?</string>
+    <string name="leave_end_text">End Session</string>
+    <string name="leave_leave_text">Leave Session</string>
+
+    <string name="setting_send_email">Send Logs By Email</string>
+    <string name="setting_clean_logs">Clean all logs</string>
+    <string name="setting_email_notice">Your email account needs to be set up and configured in your OS before using \"Send Logs By Email\".</string>
+
+    <string name="raise_hand">Raise Hand</string>
+    <string name="low_hand">Lower Hand</string>
+
+    <string name="lower_third_preview">Preview</string>
+    <string name="low_third_title">Lower Third</string>
+    <string name="low_third_name_title">Your Name</string>
+    <string name="low_third_job_title">Description</string>
+    <string name="low_third_color_title">Brand Color</string>
+    <string name="lower_third_job_hint">e.g. Product Manager@Company</string>
+    <string name="low_third_save">Save</string>
+    <string name="low_third_cancel">Cancel</string>
+    <string name="low_third_update">Update</string>
+    <string name="close">Close</string>
+    <string name="feedback_survey">Feedback Survey</string>
+    <string name="feedbacks">Feedbacks</string>
+    <string name="feedback_survey_title">How would you rate this session?</string>
+    <string name="feedback_response_count">%d responses</string>
+    <string name="feedback_push_result">Push Feedback Survey</string>
+    <string name="feedback_repush_tip">The survey has been pushed. Re-push in %ds.</string>
+    <string name="feedback_push_to_participant_tip">Push this survey to all participants</string>
+    <string name="feedback_cancel">Cancel</string>
+    <string name="feedback_push">Push</string>
+    <string name="feedback_submit">Submit</string>
+    <string name="feedback_thank_title">Thank you for your feedback</string>
+    <string name="feedback_done">OK</string>
+    <string name="more_feedback_session">Send Feedback</string>
+    <string name="more_feedbacks">Feedbacks</string>
+</resources>

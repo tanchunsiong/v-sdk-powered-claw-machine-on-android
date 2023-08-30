@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="14dp"
+    android:paddingBottom="16dp"
+    android:focusableInTouchMode="true">
+
+    <TextView
+        android:id="@+id/cancelTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#0E72ED"
+        android:textSize="17sp"
+        android:text="@string/cancel"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#131619"
+        android:text="@string/lower_third_preview"
+        android:textSize="17sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/saveTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/low_third_btn_confirm"
+        android:text="@string/save"
+        android:textSize="17sp"
+        android:layout_weight="1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <FrameLayout
+        android:id="@+id/previewLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/nameLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/frame_back_bg"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="24dp">
+
+        <ImageView
+            android:id="@+id/previewIv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/lower_third_pic_bg"/>
+    </FrameLayout>
+
+    <us.zoom.sdksample.view.LowerThirdLayout
+        android:id="@+id/layout_lower_third"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="@+id/previewLayout"
+        app:layout_constraintTop_toTopOf="@+id/previewLayout"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/low_third_title"
+        app:layout_constraintLeft_toLeftOf="@+id/previewLayout"
+        app:layout_constraintTop_toTopOf="@+id/lowerThirdSwitch"
+        app:layout_constraintBottom_toBottomOf="@+id/lowerThirdSwitch"
+        android:layout_marginLeft="16dp"
+        android:textColor="#F7F9FA"
+        android:textSize="16sp"/>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/lowerThirdSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/previewLayout"
+        app:layout_constraintRight_toRightOf="@+id/previewLayout"
+        android:layout_marginBottom="14dp"
+        android:layout_marginRight="16dp"
+        android:thumb="@drawable/ic_switch_thumb"
+        app:track="@drawable/switch_bg" />
+
+    <LinearLayout
+        android:id="@+id/nameLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/name_input"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="4dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#131619"
+            android:text="@string/low_third_name_title"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" *"
+            android:textSize="14sp"
+            android:textColor="#FF1744"/>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/name_input"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/companyLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/low_third_input_bg"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="#131619"
+        android:textColorHint="#6E7680"
+        android:textSize="16sp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" />
+
+    <LinearLayout
+        android:id="@+id/companyLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/company_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="4dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#131619"
+            android:text="@string/low_third_job_title"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/company_input"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/colorTipTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/low_third_input_bg"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="#131619"
+        android:textColorHint="#6E7680"
+        android:textSize="16sp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:hint="@string/lower_third_job_hint" />
+
+    <TextView
+        android:id="@+id/colorTipTv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/disableIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/low_third_color_title"
+        android:textColor="@color/text_black"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp"/>
+
+    <us.zoom.sdksample.view.CycleColorImageView
+        android:id="@+id/disableIv"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:civ_boarder_color="#0E72ED"
+        app:civ_circle_image_color="@color/lower_third_disable"
+        app:civ_boarder_width="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/blueIv"
+        app:layout_constraintBottom_toTopOf="@+id/lightPurpleIv"
+        android:layout_marginBottom="8dp"/>
+
+    <ImageView
+        android:id="@+id/disableLockIv"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        app:layout_constraintLeft_toLeftOf="@+id/disableIv"
+        app:layout_constraintRight_toRightOf="@+id/disableIv"
+        app:layout_constraintTop_toTopOf="@+id/disableIv"
+        app:layout_constraintBottom_toBottomOf="@+id/disableIv"
+        android:src="@drawable/lower_third_lock"/>
+
+    <us.zoom.sdksample.view.CycleColorImageView
+        android:id="@+id/blueIv"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:civ_boarder_color="#0E72ED"
+        app:civ_circle_image_color="@color/lower_third_blue"
+        app:civ_boarder_width="1dp"
+        app:layout_constraintLeft_toRightOf="@+id/disableIv"
+        app:layout_constraintRight_toLeftOf="@+id/redIv"
+        app:layout_constraintBottom_toBottomOf="@+id/disableIv"
+        app:layout_constraintTop_toTopOf="@+id/disableIv"/>
+
+    <us.zoom.sdksample.view.CycleColorImageView
+        android:id="@+id/redIv"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:civ_boarder_color="#0E72ED"
+        app:civ_circle_image_color="@color/lower_third_red"
+        app:civ_boarder_width="1dp"
+        app:layout_constraintLeft_toRightOf="@id/blueIv"
+        app:layout_constraintRight_toLeftOf="@id/greenIv"
+        app:layout_constraintTop_toTopOf="@+id/disableIv"
+        app:layout_constraintBottom_toBottomOf="@+id/disableIv" />
+
+    <us.zoom.sdksample.view.CycleColorImageView
+        android:id="@+id/greenIv"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:civ_boarder_color="#0E72ED"
+        app:civ_circle_image_color="@color/lower_third_green"
+        app:civ_boarder_width="1dp"
+        app:layout_constraintLeft_toRightOf="@+id/redIv"
+        app:layout_constraintRight_toLeftOf="@+id/orangeIv"
+        app:layout_constraintTop_toTopOf="@+id/disableIv"
+        app:layout_constraintBottom_toBottomOf="@+id/disableIv"/>
+
+
+    <us.zoom.sdksample.view.CycleColorImageView
+        android:id="@+id/orangeIv"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:civ_boarder_color="#0E72ED"
+        app:civ_circle_image_color="@color/lower_third_orange"
+        app:civ_boarder_width="1dp"
+        app:layout_constraintLeft_toRightOf="@+id/greenIv"
+        app:layout_constraintRight_toLeftOf="@+id/purpleIv"
+        app:layout_constraintTop_toTopOf="@+id/disableIv"
+        app:layout_constraintBottom_toBottomOf="@+id/disableIv"/>
+
+    <us.zoom.sdksample.view.CycleColorImageView
+        android:id="@+id/purpleIv"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:civ_boarder_color="#0E72ED"
+        app:civ_circle_image_color="@color/lower_third_purple"
+        app:civ_boarder_width="1dp"
+        app:layout_constraintLeft_toRightOf="@+id/orangeIv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/disableIv"
+        app:layout_constraintBottom_toBottomOf="@+id/disableIv"/>
+
+    <us.zoom.sdksample.view.CycleColorImageView
+        android:id="@+id/lightPurpleIv"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:civ_boarder_color="#0E72ED"
+        app:civ_circle_image_color="@color/lower_third_light_purple"
+        app:civ_boarder_width="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/disableIv"
+        app:layout_constraintRight_toRightOf="@+id/disableIv"/>
+
+    <us.zoom.sdksample.view.CycleColorImageView
+        android:id="@+id/yellowIv"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:civ_boarder_color="#0E72ED"
+        app:civ_circle_image_color="@color/lower_third_yellow"
+        app:civ_boarder_width="1dp"
+        app:layout_constraintTop_toTopOf="@+id/lightPurpleIv"
+        app:layout_constraintBottom_toBottomOf="@+id/lightPurpleIv"
+        app:layout_constraintLeft_toLeftOf="@+id/blueIv"
+        app:layout_constraintRight_toRightOf="@+id/blueIv"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

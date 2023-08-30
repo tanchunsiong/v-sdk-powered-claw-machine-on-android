@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".BaseSessionActivity">
+
+    <include layout="@layout/layout_head" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingRight="@dimen/dp_16">
+
+            <TextView
+                android:id="@+id/tvName"
+                style="@style/ZMTextView"
+                android:text="@string/session_name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_63"
+                android:layout_marginLeft="@dimen/dp_22"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toRightOf="@+id/barrier"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/session_edit"
+                    style="@style/ZMEditText"
+                    android:digits="@string/session_name_digits"
+                    android:maxLength="150"
+                    android:hint="@string/session_name_hint" />
+
+                <LinearLayout
+                    android:id="@+id/btn_copy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onClickCopy"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_marginTop="@dimen/dp_20"
+                        android:layout_marginBottom="@dimen/dp_20"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:layout_gravity="center"
+                        android:src="@drawable/icon_copy" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height"
+                android:background="@color/line_color"
+                app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+            <TextView
+                android:id="@+id/tvUserName"
+                style="@style/ZMTextView"
+                android:text="@string/your_name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line1" />
+
+
+            <EditText
+                android:id="@+id/userName_edit"
+                style="@style/ZMEditText"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_63"
+                android:layout_marginLeft="@dimen/dp_22"
+                android:hint="@string/your_name_hint"
+                app:layout_constraintLeft_toRightOf="@+id/barrier"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line1" />
+
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height"
+                android:background="@color/line_color"
+                app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
+
+            <TextView
+                android:id="@+id/tvPassword"
+                style="@style/ZMTextView"
+                android:text="@string/password"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line2" />
+
+
+            <EditText
+                android:id="@+id/password_edit"
+                style="@style/ZMEditText"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_63"
+                android:layout_marginLeft="@dimen/dp_22"
+                android:hint="@string/password_hint"
+                android:maxLength="10"
+                app:layout_constraintLeft_toRightOf="@+id/barrier"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line2" />
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height"
+                android:background="@color/line_color"
+                app:layout_constraintTop_toBottomOf="@+id/tvPassword" />
+
+            <TextView
+                android:id="@+id/tvRendererTitle"
+                style="@style/ZMTextView"
+                android:text="@string/renderer"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line3" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_63"
+                android:layout_marginLeft="@dimen/dp_22"
+                android:onClick="onClickRenderer"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toRightOf="@+id/barrier"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line3">
+
+                <TextView
+                    android:id="@+id/tvRenderer"
+                    style="@style/ZMEditText"
+                    android:text="@string/renderer_option_zoom" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_16"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@null"
+                    android:src="@drawable/icon_arrow_bottom" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height"
+                android:background="@color/line_color"
+                app:layout_constraintTop_toBottomOf="@+id/tvRendererTitle" />
+
+            <TextView
+                android:id="@+id/tvSessionIdleTimeoutMins"
+                style="@style/ZMTextView"
+                android:text="@string/sessionIdleTimeoutMins"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line4" />
+
+
+            <EditText
+                android:id="@+id/sessionIdleTimeoutMins_edit"
+                style="@style/ZMEditText"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_63"
+                android:layout_marginLeft="@dimen/dp_22"
+                android:hint="@string/password_hint"
+                android:maxLength="10"
+                android:text="40"
+                app:layout_constraintLeft_toRightOf="@+id/barrier"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line4"
+                android:inputType="number"/>
+
+            <View
+                android:id="@+id/line5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height"
+                android:background="@color/line_color"
+                app:layout_constraintTop_toBottomOf="@+id/tvSessionIdleTimeoutMins" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="right"
+                app:constraint_referenced_ids="tvName,tvUserName,tvPassword,tvRendererTitle,tvSessionIdleTimeoutMins" />
+
+            <Button
+                android:id="@+id/btn_join"
+                style="@style/ZMButton"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_24"
+                android:layout_marginRight="@dimen/dp_12"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:onClick="onClickJoinSession"
+                android:text="@string/create"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line5" />
+
+
+            <Button
+                android:id="@+id/btn_audio_test"
+                style="@style/ZMButton"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_100"
+                android:layout_marginRight="@dimen/dp_12"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:onClick="onClickAudioTest"
+                android:text="Audio Test"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</LinearLayout>

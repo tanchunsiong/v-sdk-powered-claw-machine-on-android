@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llRecordStatus"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:minHeight="56dp"
+    android:background="@drawable/zm_v2_bg_menu">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/zm_btn_round_dark"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp">
+
+            <ImageView
+                android:id="@+id/imgRecording"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="4dp"
+                android:src="@drawable/zm_ic_cmr_recording"
+                tools:ignore="ContentDescription" />
+
+            <ProgressBar
+                android:id="@+id/progressStartingRecord"
+                style="@style/android:Widget.ProgressBar.Small"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/txtRecordStatus"
+                android:textColor="#FFFFFF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recording…"
+                android:maxLines="1"
+                android:singleLine="true"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|right"
+        android:layout_marginRight="24dp"
+        android:layout_marginLeft="16dp"
+        >
+
+        <ImageView
+            android:id="@+id/btn_pause_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:src="@drawable/zm_record_btn_pause" />
+
+        <ImageView
+            android:id="@+id/btn_stop_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:focusable="false"
+            android:src="@drawable/zm_record_btn_stop" />
+    </LinearLayout>
+
+</LinearLayout>

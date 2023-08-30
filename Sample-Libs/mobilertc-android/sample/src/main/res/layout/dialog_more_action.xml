@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_280"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bg"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="61dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="24dp"
+        android:text="More"
+        android:textColor="#232333"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/llSpeaker"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="@drawable/more_action_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="24dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:id="@+id/tvSpeaker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Turn off Speaker"
+            android:textColor="#232333"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/ivSpeaker"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_speaker_on" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llSwitchCamera"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="@drawable/more_action_last_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="24dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:id="@+id/tvSwitchCamera"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Switch Camera"
+            android:textColor="#232333"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/ivSwitchCamera"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_switchcamera" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llLowerThird"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="@drawable/more_action_last_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="24dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:id="@+id/tvLowerThird"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/low_third_title"
+            android:textColor="#232333"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/ivLowerThird"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/lower_third" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llFeedback"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="@drawable/more_action_last_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="24dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:id="@+id/tvFeedback"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Feedbacks"
+            android:textColor="#232333"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/ivFeedback"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_feedback_survey" />
+    </LinearLayout>
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/llStartRecord"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="66dp"-->
+<!--        android:background="@drawable/more_action_last_bg"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:paddingLeft="24dp"-->
+<!--        android:paddingRight="16dp">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvStartRecord"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="Start Record"-->
+<!--            android:textColor="#232333"-->
+<!--            android:textSize="16sp" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/ivStartRecord"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:src="@drawable/zm_menu_icon_more_start_record" />-->
+<!--    </LinearLayout>-->
+
+    <LinearLayout
+        android:id="@+id/llRaiseHand"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="@drawable/more_action_last_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="24dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:id="@+id/tvRaiseHand"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/raise_hand"
+            android:textColor="#232333"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/ivRaiseHand"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/raise_hand" />
+    </LinearLayout>
+
+<!--    <include layout="@layout/zm_item_more_record"/>-->
+    <include layout="@layout/item_camera_control" android:id="@+id/camera_control" android:visibility="gone"/>
+    <include layout="@layout/zm_item_more_emoji"/>
+</LinearLayout>
