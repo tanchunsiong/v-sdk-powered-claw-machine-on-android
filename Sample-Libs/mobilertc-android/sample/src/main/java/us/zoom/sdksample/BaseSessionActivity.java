@@ -40,6 +40,7 @@ import java.util.Random;
 import us.zoom.sdk.ZoomVideoSDKAnnotationHelper;
 import us.zoom.sdk.ZoomVideoSDKAudioHelper;
 import us.zoom.sdk.ZoomVideoSDKCRCCallStatus;
+import us.zoom.sdk.ZoomVideoSDKCameraDevice;
 import us.zoom.sdk.ZoomVideoSDKChatHelper;
 import us.zoom.sdk.ZoomVideoSDKChatMessageDeleteType;
 import us.zoom.sdk.ZoomVideoSDKChatPrivilegeType;
@@ -629,12 +630,16 @@ public class BaseSessionActivity extends AppCompatActivity implements View.OnCli
                         break;
                     case "camera":
                         System.out.println("Camera");
+                        switchCamera();
                         break;
                     case "lights":
                     case "light":
                         System.out.println("Lights");
                         toggleCarLights();
                         break;
+                    case "rotate":
+                        System.out.println("rotate");
+                        rotateCamera();
                     default:
                         System.out.println("Unknown Direction");
                 }
@@ -668,13 +673,39 @@ public class BaseSessionActivity extends AppCompatActivity implements View.OnCli
                     break;
                 case "camera":
                     System.out.println("Camera");
-                    break;
+                    switchCamera();
+                case "rotate":
+                    System.out.println("rotate");
+                    rotateCamera();
                 default:
                     System.out.println("Unknown Direction");
             }
         }
 
     }
+    private void switchCamera(){
+        if (null != ZoomVideoSDK.getInstance()) {
+         List<ZoomVideoSDKCameraDevice> cameraDevices=  ZoomVideoSDK.getInstance().getVideoHelper().getCameraList();
+
+
+            try
+            {
+                    ZoomVideoSDK.getInstance().getVideoHelper().switchCamera();
+             }
+             catch (Exception ex){
+
+             }
+
+
+        }
+    }
+
+    private void rotateCamera(){
+        Random rand = new Random();
+        int randInt= rand.nextInt(4);
+        boolean ret = ZoomVideoSDK.getInstance().getVideoHelper().rotateMyVideo(randInt);
+    }
+
     //GPIODemo
     private void moveCarForward() {
 
