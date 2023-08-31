@@ -135,7 +135,7 @@ public class BaseSessionActivity extends AppCompatActivity implements View.OnCli
 
     //GPIODemo
     private Handler handlerForGPIO;
-    private boolean isCarDemo = false; //if set to false, this is for claw machine.
+    private boolean isCarDemo = true; //if set to false, this is for claw machine.
 
     //GPIODemo
 
@@ -233,12 +233,32 @@ public class BaseSessionActivity extends AppCompatActivity implements View.OnCli
             renderType = getIntent().getIntExtra("render_type", RENDER_TYPE_ZOOMRENDERER);
         }
         setContentView(R.layout.activity_session);
+
+
+
         init();
+
+        //GPIODemo
+        initInputTextbox();
 
         //GPIODemo
         initialisePins();
         resetMovementFirstTime();
         handlerForGPIO = new Handler();
+    }
+    //GPIODemo
+    private void initInputTextbox() {
+
+        TextView sessionNameTextView = findViewById(R.id.session_edit);
+        TextView sessionNameTextView2 = findViewById(R.id.password_edit);
+
+
+        if (isCarDemo) {
+            sessionNameTextView.setText("herochun6871");
+        } else {
+            sessionNameTextView.setText("herochun5104");
+        }
+        sessionNameTextView2.setText("12345678");
     }
 
     protected String getDefaultSessionName() {
