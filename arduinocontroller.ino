@@ -6,7 +6,8 @@ const int motor1 = 8;
 const int motor2 = 7;
 const int motor3 = 6;
 const int motor4 = 5;
-const int pinLight = 4;
+const int pinLight1 = 4;
+const int pinLight2 = 3;
 //const int pinStart = 3;
 
 const int ledPin = 13;
@@ -20,8 +21,8 @@ void setup() {
   pinMode(motor2, OUTPUT);
   pinMode(motor3, OUTPUT);
   pinMode(motor4, OUTPUT);
-  pinMode(pinLight, OUTPUT);
- 
+  pinMode(pinLight1, OUTPUT);
+   pinMode(pinLight2, OUTPUT);
 
     pinMode(ledPin, OUTPUT); 
   // Initialize the pins to LOW
@@ -29,8 +30,8 @@ void setup() {
   digitalWrite(motor2, LOW);
   digitalWrite(motor3, LOW);
   digitalWrite(motor4, LOW);
-  digitalWrite(pinLight, LOW);
- 
+  digitalWrite(pinLight1, LOW);
+   digitalWrite(pinLight2, LOW);
   digitalWrite(ledPin, LOW);
 }
 
@@ -65,18 +66,7 @@ void loop() {
         blinkLED(3);
     } else if (inputString.equals("left")) {
          Serial.println("Moving Left");
-      digitalWrite(motor1,LOW);
-      digitalWrite(motor2,HIGH);
-      digitalWrite(motor3,HIGH);
-      digitalWrite(motor4,LOW);
-      delay(300);
-      digitalWrite(motor1,LOW);
-      digitalWrite(motor2,LOW);
-      digitalWrite(motor3,LOW);
-      digitalWrite(motor4,LOW);
-        blinkLED(4);
-    } else if (inputString.equals("right")) {
-      digitalWrite(motor1,HIGH);
+       digitalWrite(motor1,HIGH);
       digitalWrite(motor2,LOW);
       digitalWrite(motor3,LOW);
       digitalWrite(motor4,HIGH);
@@ -85,12 +75,26 @@ void loop() {
       digitalWrite(motor2,LOW);
       digitalWrite(motor3,LOW);
       digitalWrite(motor4,LOW);
+        blinkLED(4);
+    } else if (inputString.equals("right")) {
+    
+       digitalWrite(motor1,LOW);
+      digitalWrite(motor2,HIGH);
+      digitalWrite(motor3,HIGH);
+      digitalWrite(motor4,LOW);
+      delay(300);
+      digitalWrite(motor1,LOW);
+      digitalWrite(motor2,LOW);
+      digitalWrite(motor3,LOW);
+      digitalWrite(motor4,LOW);
         blinkLED(5);
     } else if (inputString.equals("light")) {
         Serial.println("light");
-        digitalWrite(pinLight, HIGH);
+        digitalWrite(pinLight1, HIGH);
+        digitalWrite(pinLight2, HIGH);
         delay(1000);
-        digitalWrite(pinLight, LOW);
+        digitalWrite(pinLight1, LOW);
+        digitalWrite(pinLight2, LOW);
        blinkLED(6);
     }  else {
         // Unknown command received
@@ -119,6 +123,9 @@ void serialEvent() {
     // If the incoming character is a newline, set a flag so the main loop can process it
     if (inChar == '\n') {
       stringComplete = true;
+      
+      Serial.print("Message received is:"+inputString +"\n"); // Send a message with a newline character
+  
       break;  // Exit the loop once a newline is detected
     } else {
       // If the character is not a newline, add it to the inputString

@@ -424,6 +424,7 @@ public class BaseSessionActivity extends AppCompatActivity implements View.OnCli
 
         ZoomVideoSDKAudioOption audioOption = new ZoomVideoSDKAudioOption();
         audioOption.connect = true;
+        audioOption.connect = true;
         audioOption.mute = false;
         audioOption.isMyVoiceInMix = true;
         sessionContext.audioOption = audioOption;
