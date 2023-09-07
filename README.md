@@ -17,3 +17,6 @@ Use of this SDK is subject to our [License and Terms of Use](https://explore.zoo
 
 ---
 Copyright ©2023 Zoom Video Communications, Inc. All rights reserved.
+
+
+https://github.com/mik3y/usb-serial-for-android

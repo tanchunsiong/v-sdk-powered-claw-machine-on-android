@@ -2,6 +2,7 @@ package us.zoom.sdksample;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -10,8 +11,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbDeviceConnection;
+import android.hardware.usb.UsbManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -33,6 +38,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -86,6 +92,11 @@ import us.zoom.sdksample.util.NetworkUtil;
 import static us.zoom.sdksample.BaseMeetingActivity.RENDER_TYPE_OPENGLES;
 import static us.zoom.sdksample.BaseMeetingActivity.RENDER_TYPE_ZOOMRENDERER;
 
+import com.hoho.android.usbserial.driver.UsbSerialDriver;
+import com.hoho.android.usbserial.driver.UsbSerialPort;
+import com.hoho.android.usbserial.driver.UsbSerialProber;
+
+
 public class BaseSessionActivity extends AppCompatActivity implements View.OnClickListener, ZoomVideoSDKDelegate {
 
     protected String[] defaultNameList = {"Grand Canyon", "Yosemite", "Yellowstone", "Disneyland", "Golden Gate Bridge", "Monument Valley", "Death Valley", "Brooklyn Bridge",
@@ -117,114 +128,38 @@ public class BaseSessionActivity extends AppCompatActivity implements View.OnCli
 
     private static final boolean show_audio_test = false;
 
-    //GPIODemo
-    private GPIO pinMoveUp;
-    private GPIO pinMoveDown;
-    private GPIO pinMoveLeft;
-    private GPIO pinMoveRight;
-    private GPIO pinMoveCatch;
-    private GPIO pinMoveStart;
 
-    //GPIODemo
-    private GPIO pinMotorIn1;
-    private GPIO pinMotorIn2;
-    private GPIO pinMotorIn3;
-    private GPIO pinMotorIn4;
-    private GPIO pinAccessoriesIn1;
-    private GPIO pinAccessoriesIn2;
 
     //GPIODemo
     private Handler handlerForGPIO;
     private boolean isCarDemo = true; //if set to false, this is for claw machine.
 
     //GPIODemo
+    UsbSerialPort port;
 
     //GPIODemo
-    private void initialisePins(){
-        if (isCarDemo){
-            pinMotorIn1= new GPIO(27, GPIO.DIRECTION_OUT);
-          pinMotorIn2= new GPIO(22, GPIO.DIRECTION_OUT);
-             pinMotorIn3= new GPIO(23, GPIO.DIRECTION_OUT);
-            pinMotorIn4= new GPIO(24, GPIO.DIRECTION_OUT);
-            pinAccessoriesIn1= new GPIO(5, GPIO.DIRECTION_OUT);
-          pinAccessoriesIn2= new GPIO(6, GPIO.DIRECTION_OUT);
+    private void initialisePins() throws IOException {
 
+        UsbManager manager = (UsbManager) getSystemService(Context.USB_SERVICE);
+        List<UsbSerialDriver> availableDrivers = UsbSerialProber.getDefaultProber().findAllDrivers(manager);
+        if (availableDrivers.isEmpty()) {
+            return;
         }
-        else{
-            //dreamtcs to fix this
-            pinMoveUp= new GPIO(22, GPIO.DIRECTION_OUT);
-             pinMoveDown=new GPIO(23, GPIO.DIRECTION_OUT);
-           pinMoveLeft= new GPIO(24, GPIO.DIRECTION_OUT);
-          pinMoveRight= new GPIO(12, GPIO.DIRECTION_OUT);
-           pinMoveCatch=new GPIO(5, GPIO.DIRECTION_OUT);
-           pinMoveStart= new GPIO(6 , GPIO.DIRECTION_OUT);
+
+        // Open a connection to the first available driver.
+        UsbSerialDriver driver = availableDrivers.get(0);
+        UsbDeviceConnection connection = manager.openDevice(driver.getDevice());
+        if (connection == null) {
+            // add UsbManager.requestPermission(driver.getDevice(), ..) handling here
+            return;
         }
-        }
-    //GPIODemo
-    private void resetMovementFirstTime(){
-        try{
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (isCarDemo){
-                        pinMotorIn1.setValue(GPIO.VALUE_OFF);
-                        pinMotorIn2.setValue(GPIO.VALUE_OFF);
-                        pinMotorIn3.setValue(GPIO.VALUE_OFF);
-                        pinMotorIn4.setValue(GPIO.VALUE_OFF);
-                        pinAccessoriesIn1.setValue(GPIO.VALUE_OFF);
-                        pinAccessoriesIn2.setValue(GPIO.VALUE_OFF);
-                    }
-                    else{
-                        pinMoveUp.setValue(GPIO.VALUE_OFF);
-                        pinMoveDown.setValue(GPIO.VALUE_OFF);
-                        pinMoveLeft.setValue(GPIO.VALUE_OFF);
-                        pinMoveRight.setValue(GPIO.VALUE_OFF);
-                        pinMoveCatch.setValue(GPIO.VALUE_OFF);
-                        pinMoveStart.setValue(GPIO.VALUE_OFF);
-                    }
-                }
-            },100);
-        }
-        catch (Exception ex){
-            ex.toString();
+
+        port = driver.getPorts().get(0); // Most devices have just one port (port 0)
+        port.open(connection);
+        port.setParameters(9600, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
 
         }
 
-
-    }
-
-    //GPIODemo
-    private void resetMovement(){
-
-        try{
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (isCarDemo){
-                        pinMotorIn1.setValue(GPIO.VALUE_OFF);
-                        pinMotorIn2.setValue(GPIO.VALUE_OFF);
-                        pinMotorIn3.setValue(GPIO.VALUE_OFF);
-                        pinMotorIn4.setValue(GPIO.VALUE_OFF);
-                        pinAccessoriesIn1.setValue(GPIO.VALUE_OFF);
-                        pinAccessoriesIn2.setValue(GPIO.VALUE_OFF);
-                    }
-                    else{
-                        pinMoveUp.setValue(GPIO.VALUE_OFF);
-                        pinMoveDown.setValue(GPIO.VALUE_OFF);
-                        pinMoveLeft.setValue(GPIO.VALUE_OFF);
-                        pinMoveRight.setValue(GPIO.VALUE_OFF);
-                        pinMoveCatch.setValue(GPIO.VALUE_OFF);
-                        pinMoveStart.setValue(GPIO.VALUE_OFF);
-                    }
-                }
-            },100);
-        }
-        catch (Exception ex){
-            ex.toString();
-
-        }
-
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -242,9 +177,13 @@ public class BaseSessionActivity extends AppCompatActivity implements View.OnCli
         initInputTextbox();
 
         //GPIODemo
-        initialisePins();
-        resetMovementFirstTime();
-        handlerForGPIO = new Handler();
+        try {
+            initialisePins();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
     //GPIODemo
     private void initInputTextbox() {
@@ -667,29 +606,29 @@ public class BaseSessionActivity extends AppCompatActivity implements View.OnCli
             switch (receivedtext) {
                 case "u":
                     System.out.println("Move Claw Up");
-                    moveClawUp();
+                    //moveClawUp();
                     break;
                 case "d":
                     System.out.println("Move Claw Down");
-                    moveClawDown();
+                    //moveClawDown();
                     break;
                 case "l":
                     System.out.println("Move Claw Left");
-                    moveClawLeft();
+                    //moveClawLeft();
                     break;
                 case "r":
                     System.out.println("Move Claw Right");
-                    moveClawRight();
+                    //moveClawRight();
                     break;
                 case "start":
                 case "s":
                     System.out.println("Start Claw Game");
-                    startClawGame();
+                    //startClawGame();
                     break;
                 case "catch":
                 case "c":
                     System.out.println("Catch Claw");
-                    catchClaw();
+                    //catchClaw();
                     break;
                 case "camera":
                     System.out.println("Camera");
@@ -730,19 +669,8 @@ public class BaseSessionActivity extends AppCompatActivity implements View.OnCli
     private void moveCarForward() {
 
         try{
-            pinMotorIn1.setValue(GPIO.VALUE_ON);
-            pinMotorIn3.setValue(GPIO.VALUE_ON);
+            port.write("forward\n".getBytes(), 1000);
 
-            Runnable r = new Runnable() {
-                @Override
-                public void run() {
-                    pinMotorIn1.setValue(GPIO.VALUE_OFF);
-                    pinMotorIn3.setValue(GPIO.VALUE_OFF);
-                    resetMovement();
-                }
-            };
-
-            handlerForGPIO.postDelayed(r,125);
         }
         catch (Exception ex){
             ex.toString();
@@ -752,19 +680,8 @@ public class BaseSessionActivity extends AppCompatActivity implements View.OnCli
     private void moveCarBackward() {
 
         try{
-            pinMotorIn2.setValue(GPIO.VALUE_ON);
-            pinMotorIn4.setValue(GPIO.VALUE_ON);
+            port.write("backward\n".getBytes(), 1000);
 
-            Runnable r = new Runnable() {
-                @Override
-                public void run() {
-                    pinMotorIn2.setValue(GPIO.VALUE_OFF);
-                    pinMotorIn4.setValue(GPIO.VALUE_OFF);
-                    resetMovement();
-                }
-            };
-
-            handlerForGPIO.postDelayed(r,125);
         }
         catch (Exception ex){
             ex.toString();
@@ -774,19 +691,8 @@ public class BaseSessionActivity extends AppCompatActivity implements View.OnCli
     private void moveCarLeft() {
 
         try{
-            pinMotorIn2.setValue(GPIO.VALUE_ON);
-            pinMotorIn3.setValue(GPIO.VALUE_ON);
+            port.write("left\n".getBytes(), 1000);
 
-            Runnable r = new Runnable() {
-                @Override
-                public void run() {
-                    pinMotorIn2.setValue(GPIO.VALUE_OFF);
-                    pinMotorIn3.setValue(GPIO.VALUE_OFF);
-                    resetMovement();
-                }
-            };
-
-            handlerForGPIO.postDelayed(r,125);
         }
         catch (Exception ex){
             ex.toString();
@@ -796,19 +702,8 @@ public class BaseSessionActivity extends AppCompatActivity implements View.OnCli
     //GPIODemo
     private void moveCarRight() {
         try{
-            pinMotorIn1.setValue(GPIO.VALUE_ON);
-            pinMotorIn4.setValue(GPIO.VALUE_ON);
+            port.write("right\n".getBytes(), 1000);
 
-            Runnable r = new Runnable() {
-                @Override
-                public void run() {
-                    pinMotorIn1.setValue(GPIO.VALUE_OFF);
-                    pinMotorIn4.setValue(GPIO.VALUE_OFF);
-                    resetMovement();
-                }
-            };
-
-            handlerForGPIO.postDelayed(r,125);
         }
         catch (Exception ex){
             ex.toString();
@@ -817,142 +712,16 @@ public class BaseSessionActivity extends AppCompatActivity implements View.OnCli
     //GPIODemo
     private void toggleCarLights() {
         try{
-            pinAccessoriesIn1.setValue(GPIO.VALUE_ON);
-            pinAccessoriesIn2.setValue(GPIO.VALUE_ON);
-
-            Runnable r = new Runnable() {
-                @Override
-                public void run() {
-                    pinAccessoriesIn1.setValue(GPIO.VALUE_OFF);
-                    pinAccessoriesIn2.setValue(GPIO.VALUE_OFF);
-                    resetMovement();
-                }
-            };
-
-            handlerForGPIO.postDelayed(r,125);
-        }
-        catch (Exception ex){
-            ex.toString();
-        }
-    }
-    //GPIODemo
-    void moveClawUp(){
-        try{
-
-            pinMoveUp.setValue(GPIO.VALUE_ON);
-            Runnable r = new Runnable() {
-                @Override
-                public void run() {
-                    pinMoveUp.setValue(GPIO.VALUE_OFF);
-                    resetMovement();
-                }
-            };
-            handlerForGPIO.postDelayed(r,125);
-        }
-        catch (Exception ex){
-            ex.toString();
-        }
-
-    }
-    //GPIODemo
-    void moveClawDown(){
-        try{
-
-            pinMoveDown.setValue(GPIO.VALUE_ON);
-            Runnable r = new Runnable() {
-                @Override
-                public void run() {
-                    pinMoveDown.setValue(GPIO.VALUE_OFF);
-                    resetMovement();
-                }
-            };
-            handlerForGPIO.postDelayed(r,125);
-        }
-        catch (Exception ex){
-            ex.toString();
-        }
-
-    }
-    //GPIODemo
-    void moveClawLeft(){
-
-        try{
-
-            pinMoveLeft.setValue(GPIO.VALUE_ON);
-            Runnable r = new Runnable() {
-                @Override
-                public void run() {
-                    pinMoveLeft.setValue(GPIO.VALUE_OFF);
-                    resetMovement();
-                }
-            };
-
-            handlerForGPIO.postDelayed(r,125);
-        }
-        catch (Exception ex){
-            ex.toString();
-        }
-
-    }
-    //GPIODemo
-    void moveClawRight(){
-        try{
-            pinMoveRight.setValue(GPIO.VALUE_ON);
-            Runnable r = new Runnable() {
-                @Override
-                public void run() {
-                    pinMoveRight.setValue(GPIO.VALUE_OFF);
-                    resetMovement();
-                }
-            };
-
-            handlerForGPIO.postDelayed(r,125);
-        }
-        catch (Exception ex){
-            ex.toString();
-        }
-    }
-    //GPIODemo
-    void startClawGame(){
-        try{
-
-        pinMoveStart.setValue(GPIO.VALUE_ON);
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                pinMoveStart.setValue(GPIO.VALUE_OFF);
-                resetMovement();
-            }
-        };
-
-        handlerForGPIO.postDelayed(r,125);
-    }
-        catch (Exception ex){
-        ex.toString();
-    }}
-    //GPIODemo
-    void catchClaw(){
-        try{
-
-            pinMoveCatch.setValue(GPIO.VALUE_ON);
-
-
-            Runnable r = new Runnable() {
-                @Override
-                public void run() {
-                    pinMoveCatch.setValue(GPIO.VALUE_OFF);
-                    resetMovement();
-                }
-            };
-
-            handlerForGPIO.postDelayed(r,125);
+            port.write("light\n".getBytes(), 1000);
 
         }
         catch (Exception ex){
             ex.toString();
         }
-
     }
+
+
+
     @Override
     public void onChatDeleteMessageNotify(ZoomVideoSDKChatHelper chatHelper, String msgID, ZoomVideoSDKChatMessageDeleteType deleteBy) {
 
